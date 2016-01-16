@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EnemyLocations>
+  <Enemies>
+    <EnemyLevels>
+      <EnemyObjects>
+      </EnemyObjects>
+    </EnemyLevels>
+    <EnemyLevels>
+      <EnemyObjects>
+        <EnemyInfo>
+          <id>7</id>
+          <XLoc>70</XLoc>
+          <YLoc>70</YLoc>
+          <Width>32</Width>
+          <Height>32</Height>
+          <Collision>true</Collision>
+          <Horizontal>true</Horizontal>
+          <Left>false</Left>
+          <Up>false</Up>
+          <Speed>5</Speed>
+        </EnemyInfo>
+      </EnemyObjects>
+    </EnemyLevels>
+  </Enemies>
+</EnemyLocations>

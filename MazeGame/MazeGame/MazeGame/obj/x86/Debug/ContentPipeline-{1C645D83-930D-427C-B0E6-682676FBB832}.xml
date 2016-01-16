@@ -62,6 +62,15 @@
       <Output>C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Debug\Content\Textures\tree2.xnb</Output>
       <Time>2016-01-13T19:04:05.1306483-08:00</Time>
     </Item>
+    <Item>
+      <Source>Textures\spider.png</Source>
+      <Name>Textures\spider</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Debug\Content\Textures\spider.xnb</Output>
+      <Time>2016-01-15T16:37:36.4623903-08:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{1C645D83-930D-427C-B0E6-682676FBB832}</ContentProjectGUID>

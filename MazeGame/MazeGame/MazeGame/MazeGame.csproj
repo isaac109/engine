@@ -73,12 +73,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameObjects\EndGoal.cs" />
+    <Compile Include="GameObjects\Enemy.cs" />
     <Compile Include="GameObjects\GameObjectChild.cs" />
     <Compile Include="Modles\EndGoalLocations.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="Core\Engine.cs" />
     <Compile Include="InputWrappers\KeyInput.cs" />
     <Compile Include="GameObjects\MapCell.cs" />
+    <Compile Include="Modles\EnemyLocations.cs" />
     <Compile Include="Modles\GameObjectLocations.cs" />
     <Compile Include="Modles\Maps.cs" />
     <Compile Include="InputWrappers\MouseInput.cs" />

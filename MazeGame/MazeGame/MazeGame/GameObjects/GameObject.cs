@@ -16,6 +16,7 @@ namespace MazeGame
         public int _width;
         public int _height;
         public bool _collider;
+        public bool _isColliding;
         public List<GameObject> decorations = new List<GameObject>();
 
         public GameObject()
@@ -29,6 +30,7 @@ namespace MazeGame
             _width = width;
             _height = height;
             _collider = collider;
+            _isColliding = false;
         }
 
         public void draw(SpriteBatch spriteBatch, int x, int y)

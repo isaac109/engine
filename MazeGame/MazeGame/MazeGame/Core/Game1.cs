@@ -35,6 +35,7 @@ namespace MazeGame
         PlayerLocations playerLocs;
         EndGoalLocations endGoals;
         GameObjectLocations gameObLocations;
+        EnemyLocations enemyLocs;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -51,6 +52,9 @@ namespace MazeGame
             fileStream = new FileStream("Content\\GameContent\\GameObjectLocations.xml", FileMode.Open);
             xml = new XmlSerializer(typeof(GameObjectLocations));
             gameObLocations = (GameObjectLocations)xml.Deserialize(fileStream);
+            fileStream = new FileStream("Content\\GameContent\\EnemyLocations.xml", FileMode.Open);
+            xml = new XmlSerializer(typeof(EnemyLocations));
+            enemyLocs = (EnemyLocations)xml.Deserialize(fileStream);
         }
 
         /// <summary>
@@ -71,6 +75,7 @@ namespace MazeGame
             Engine.tileTypes.Add(new Engine.TileType("Textures/yellow", false, 4));
             Engine.tileTypes.Add(new Engine.TileType("Textures/tree",false, 5));
             Engine.tileTypes.Add(new Engine.TileType("Textures/tree2", false, 6));
+            Engine.tileTypes.Add(new Engine.TileType("Textures/spider",false,7));
             initilaizeTiles();
             base.Initialize();
         }
@@ -80,6 +85,7 @@ namespace MazeGame
             layer.constructMap(lvlConter, maps);
             layer.constructEnd(lvlConter, endGoals);
             layer.constructPlayer(lvlConter, playerLocs);
+            layer.constructEnemies(lvlConter, enemyLocs); 
             layer.constructGameObjects(lvlConter, gameObLocations);
             lvlConter++;
         }
@@ -124,7 +130,11 @@ namespace MazeGame
             {
                 mouseInput.updateState();
                 mouseInput.updatePosition();
-
+                foreach (Enemy temp in layer.enemies)
+                {
+                    layer.checkIfCollision(temp, temp.direction, temp._speed);
+                    temp.checkIfIsColliding();
+                }
                 if (mouseInput.state.LeftButton == ButtonState.Pressed && !leftButtonPressed)
                 {
                     leftButtonPressed = true;
@@ -139,19 +149,24 @@ namespace MazeGame
 
                 if (keyInput.oldState.IsKeyDown(Keys.Up) || keyInput.oldState.IsKeyDown(Keys.W))
                 {
-                    layer.checkIfCollision(layer.player, TileLayer.Direction.UP, Engine.PLAYER_SPEED);
+                    layer.checkIfCollision(layer.player, Direction.UP, Engine.PLAYER_SPEED);
                 }
                 if (keyInput.oldState.IsKeyDown(Keys.Down) || keyInput.oldState.IsKeyDown(Keys.S))
                 {
-                    layer.checkIfCollision(layer.player, TileLayer.Direction.DOWN, Engine.PLAYER_SPEED);
+                    layer.checkIfCollision(layer.player, Direction.DOWN, Engine.PLAYER_SPEED);
                 }
                 if (keyInput.oldState.IsKeyDown(Keys.Left) || keyInput.oldState.IsKeyDown(Keys.A))
                 {
-                    layer.checkIfCollision(layer.player, TileLayer.Direction.LEFT, Engine.PLAYER_SPEED);
+                    layer.checkIfCollision(layer.player, Direction.LEFT, Engine.PLAYER_SPEED);
                 }
                 if (keyInput.oldState.IsKeyDown(Keys.Right) || keyInput.oldState.IsKeyDown(Keys.D))
                 {
-                    layer.checkIfCollision(layer.player, TileLayer.Direction.RIGHT, Engine.PLAYER_SPEED);
+                    layer.checkIfCollision(layer.player, Direction.RIGHT, Engine.PLAYER_SPEED);
+                }
+                if (layer.checkIfHitEnemy())
+                {
+                    lvlConter--;
+                    initilaizeTiles();
                 }
                 if (maps.maps.Count == lvlConter)
                 {

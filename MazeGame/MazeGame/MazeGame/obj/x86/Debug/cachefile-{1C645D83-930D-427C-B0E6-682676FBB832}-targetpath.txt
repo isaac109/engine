@@ -5,8 +5,10 @@ Content\Textures\yellow.xnb
 Content\SpriteFont1.xnb
 Content\Textures\tree.xnb
 Content\Textures\tree2.xnb
+Content\Textures\spider.xnb
 Content\SpriteFont1.spritefont
 Content\GameContent\Maps.xml
 Content\GameContent\PlayerLocations.xml
 Content\GameContent\EndGoalLocations.xml
 Content\GameContent\GameObjectLocations.xml
+Content\GameContent\EnemyLocations.xml

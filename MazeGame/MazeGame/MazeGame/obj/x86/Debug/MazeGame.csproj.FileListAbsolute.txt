@@ -16,3 +16,5 @@ C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\M
 C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Debug\Content\GameContent\GameObjectLocations.xml
 C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Debug\Content\Textures\tree.xnb
 C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Debug\Content\Textures\tree2.xnb
+C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Debug\Content\Textures\spider.xnb
+C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Debug\Content\GameContent\EnemyLocations.xml

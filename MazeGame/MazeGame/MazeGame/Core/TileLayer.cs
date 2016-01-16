@@ -15,20 +15,13 @@ namespace MazeGame
         Random rand = new Random();
         public EndGoal endGoal;
         public Player player;
+        public List<Enemy> enemies;
         public List<GameObjectChild> gameObjects;
 
         public TileLayer()
         {
             
         }
-
-        public enum Direction
-        {
-            UP,
-            DOWN,
-            LEFT,
-            RIGHT
-        };
 
         public bool constructMap(int counter, Maps maps)
         {
@@ -70,6 +63,39 @@ namespace MazeGame
             }
         }
 
+        public void constructEnemies(int counter, EnemyLocations enemyLocs)
+        {
+            enemies = new List<Enemy>();
+            for (int i = 0; i < enemyLocs.Enemies[counter].EnemyObjects.Count; i++)
+            {
+                Enemy temp = new Enemy(enemyLocs.Enemies[counter].EnemyObjects[i].id, "Object", enemyLocs.Enemies[counter].EnemyObjects[i].XLoc, enemyLocs.Enemies[counter].EnemyObjects[i].YLoc, enemyLocs.Enemies[counter].EnemyObjects[i].Width, enemyLocs.Enemies[counter].EnemyObjects[i].Height, enemyLocs.Enemies[counter].EnemyObjects[i].Horizontal, enemyLocs.Enemies[counter].EnemyObjects[i].Left, enemyLocs.Enemies[counter].EnemyObjects[i].Up, enemyLocs.Enemies[counter].EnemyObjects[i].Speed);
+                if (temp._horizontal)
+                {
+                    if (temp._left)
+                    {
+                        temp.direction = Direction.LEFT;
+                    }
+                    else
+                    {
+                        temp.direction = Direction.RIGHT;
+                    }
+                }
+                else
+                {
+                    if (temp._up)
+                    {
+                        temp.direction = Direction.UP;
+                    }
+                    else
+                    {
+                        temp.direction = Direction.DOWN;
+                    }
+                }
+                
+                enemies.Add(temp);
+            }
+        }
+
         public void loadTextures()
         {
             for (int i = 0; i < map.GetLength(0); i++)
@@ -82,6 +108,10 @@ namespace MazeGame
             endGoal._texture = Engine.tileTypes.Single(p => p._tileID == endGoal._tileID)._texture;
             player._texture = Engine.tileTypes.Single(p => p._tileID == player._tileID)._texture;
             foreach (GameObjectChild temp in gameObjects)
+            {
+                temp._texture = Engine.tileTypes.Single(p => p._tileID == temp._tileID)._texture;
+            }
+            foreach (Enemy temp in enemies)
             {
                 temp._texture = Engine.tileTypes.Single(p => p._tileID == temp._tileID)._texture;
             }
@@ -98,6 +128,10 @@ namespace MazeGame
             }
             endGoal.draw(spriteBatch, 0, 0);
             player.draw(spriteBatch, 0, 0);
+            foreach (Enemy temp in enemies)
+            {
+                temp.draw(spriteBatch, 0, 0);
+            }
             foreach (GameObjectChild temp in gameObjects)
             {
                 temp.draw(spriteBatch, 0, 0);
@@ -126,13 +160,41 @@ namespace MazeGame
 
         public bool checkIfWin()
         {
-            int x = (player._x + player._x + Engine.PLAYER_WIDTH)/2;
-            int y = (player._y + player._y + Engine.PLAYER_HEIGHT)/2;
-            if( x >= endGoal._x && x <= endGoal._x + Engine.ENDGOAL_WIDTH && y >= endGoal._y && y <= endGoal._y + Engine.ENDGOAL_HEIGHT)
-            {
-                return true;
-            }
+            int[] xcorners = { player._x, player._x + player._width };
+            int[] ycorners = { player._y, player._y + player._height };
 
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    if (xcorners[i] >= endGoal._x && xcorners[i] <= endGoal._x + endGoal._width && ycorners[j] >= endGoal._y && ycorners[j] <= endGoal._y + endGoal._height)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+
+        public bool checkIfHitEnemy()
+        {
+            int[] xcorners = { player._x, player._x + player._width };
+            int[] ycorners = { player._y, player._y + player._height };
+
+            foreach (Enemy temp in enemies)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    for (int j = 0; j < 2; j++)
+                    {
+                        if (xcorners[i] >= temp._x && xcorners[i] <= temp._x + temp._width && ycorners[j] >= temp._y && ycorners[j] <= temp._y + temp._height)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
             return false;
         }
 
@@ -150,24 +212,28 @@ namespace MazeGame
                     if (ymin - speed < 0)
                     {
                         moveObject(obj, dir, 0 + ymin - speed);
+                        obj._isColliding = true;
                     }
                     break;
                 case Direction.DOWN:
                     if (ymax + speed > Engine.TILE_HEIGHT * Engine.MAP_HEIGHT)
                     {
                         moveObject(obj, dir, (Engine.TILE_HEIGHT * Engine.MAP_HEIGHT) - ymax - speed);
+                        obj._isColliding = true;
                     }
                     break;
                 case Direction.LEFT:
                     if (xmin - speed < 0)
                     {
                         moveObject(obj, dir, 0 + xmin - speed);
+                        obj._isColliding = true;
                     }
                     break;
                 case Direction.RIGHT:
                     if (xmax + speed > Engine.TILE_WIDTH * Engine.MAP_LENGTH)
                     {
                         moveObject(obj, dir, (Engine.TILE_WIDTH * Engine.MAP_LENGTH) - xmax - speed);
+                        obj._isColliding = true;
                     }
                     break;
             }
@@ -186,6 +252,7 @@ namespace MazeGame
                                     ((xmin >= map[i, j]._x && xmin <= map[i, j]._x + map[i, j]._width) || (xmax >= map[i, j]._x && xmax <= map[i, j]._x + map[i, j]._width)))
                                 {
                                     moveObject(obj, dir, ymin - (map[i, j]._y + map[i, j]._height) - speed - 1);
+                                    obj._isColliding = true;
                                 }
                             }
                             break;
@@ -196,6 +263,7 @@ namespace MazeGame
                                     ((xmin >= map[i, j]._x && xmin <= map[i, j]._x + map[i, j]._width) || (xmax >= map[i, j]._x && xmax <= map[i, j]._x + map[i, j]._width)))
                                 {
                                     moveObject(obj, dir, (map[i, j]._y) - ymax - speed - 1);
+                                    obj._isColliding = true;
                                 }
                             }
                             break;
@@ -206,6 +274,7 @@ namespace MazeGame
                                     ((ymin >= map[i, j]._y && ymin <= map[i, j]._y + map[i, j]._height) || (ymax >= map[i, j]._y && ymax <= map[i, j]._y + map[i, j]._height)))
                                 {
                                     moveObject(obj, dir, xmin - (map[i, j]._x + map[i, j]._width) - speed - 1);
+                                    obj._isColliding = true;
                                 }
                             }
                             break;
@@ -216,6 +285,7 @@ namespace MazeGame
                                     ((ymin >= map[i, j]._y && ymin <= map[i, j]._y + map[i, j]._height) || (ymax >= map[i, j]._y && ymax <= map[i, j]._y + map[i, j]._height)))
                                 {
                                     moveObject(obj, dir, (map[i, j]._x) - xmax - speed - 1);
+                                    obj._isColliding = true;
                                 }
                             }
                             break;
@@ -235,6 +305,7 @@ namespace MazeGame
                                 ((xmin >= gameObjects[i]._x && xmin <= gameObjects[i]._x +gameObjects[i]._width) || (xmax >=gameObjects[i]._x && xmax <=gameObjects[i]._x +gameObjects[i]._width)))
                             {
                                 moveObject(obj, dir, ymin - (gameObjects[i]._y +gameObjects[i]._height) - speed - 1);
+                                obj._isColliding = true;
                             }
                         }
                         break;
@@ -245,6 +316,7 @@ namespace MazeGame
                                 ((xmin >=gameObjects[i]._x && xmin <=gameObjects[i]._x +gameObjects[i]._width) || (xmax >=gameObjects[i]._x && xmax <=gameObjects[i]._x +gameObjects[i]._width)))
                             {
                                 moveObject(obj, dir, (gameObjects[i]._y) - ymax - speed - 1);
+                                obj._isColliding = true;
                             }
                         }
                         break;
@@ -255,6 +327,7 @@ namespace MazeGame
                                 ((ymin >=gameObjects[i]._y && ymin <=gameObjects[i]._y +gameObjects[i]._height) || (ymax >=gameObjects[i]._y && ymax <=gameObjects[i]._y +gameObjects[i]._height)))
                             {
                                 moveObject(obj, dir, xmin - (gameObjects[i]._x +gameObjects[i]._width) - speed - 1);
+                                obj._isColliding = true;
                             }
                         }
                         break;
@@ -265,6 +338,7 @@ namespace MazeGame
                                 ((ymin >=gameObjects[i]._y && ymin <=gameObjects[i]._y +gameObjects[i]._height) || (ymax >=gameObjects[i]._y && ymax <=gameObjects[i]._y +gameObjects[i]._height)))
                             {
                                 moveObject(obj, dir, (gameObjects[i]._x) - xmax - speed - 1);
+                                obj._isColliding = true;
                             }
                         }
                         break;
