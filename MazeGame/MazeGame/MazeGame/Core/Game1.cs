@@ -36,6 +36,7 @@ namespace MazeGame
         EndGoalLocations endGoals;
         GameObjectLocations gameObLocations;
         EnemyLocations enemyLocs;
+        TriggerLocations triggerLocs;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -55,6 +56,9 @@ namespace MazeGame
             fileStream = new FileStream("Content\\GameContent\\EnemyLocations.xml", FileMode.Open);
             xml = new XmlSerializer(typeof(EnemyLocations));
             enemyLocs = (EnemyLocations)xml.Deserialize(fileStream);
+            fileStream = new FileStream("Content\\GameContent\\TriggerLocations.xml", FileMode.Open);
+            xml = new XmlSerializer(typeof(TriggerLocations));
+            triggerLocs = (TriggerLocations)xml.Deserialize(fileStream);
         }
 
         /// <summary>
@@ -76,6 +80,7 @@ namespace MazeGame
             Engine.tileTypes.Add(new Engine.TileType("Textures/tree",false, 5));
             Engine.tileTypes.Add(new Engine.TileType("Textures/tree2", false, 6));
             Engine.tileTypes.Add(new Engine.TileType("Textures/spider",false,7));
+            Engine.tileTypes.Add(new Engine.TileType("Textures/Orange", false, 8));
             initilaizeTiles();
             base.Initialize();
         }
@@ -87,6 +92,7 @@ namespace MazeGame
             layer.constructPlayer(lvlConter, playerLocs);
             layer.constructEnemies(lvlConter, enemyLocs); 
             layer.constructGameObjects(lvlConter, gameObLocations);
+            layer.constructTriggers(lvlConter, triggerLocs);
             lvlConter++;
         }
 
@@ -168,6 +174,7 @@ namespace MazeGame
                     lvlConter--;
                     initilaizeTiles();
                 }
+                layer.checkIfHitTrigger();
                 if (maps.maps.Count == lvlConter)
                 {
                     won = layer.checkIfWin();

@@ -17,6 +17,7 @@ namespace MazeGame
         public Player player;
         public List<Enemy> enemies;
         public List<GameObjectChild> gameObjects;
+        public List<Trigger> triggers;
 
         public TileLayer()
         {
@@ -33,7 +34,7 @@ namespace MazeGame
                 var chars = row.text.ToCharArray();
                 for (int j = 0; j < map.GetLength(1); j++)
                 {
-                    int type = rand.Next(0, 2);
+                    int type = 0;
                     char numchar = chars[j];
                     type = Convert.ToInt32(new string(numchar,1));
                     map[i,j] = new MapCell(type, i.ToString() + j.ToString(), j*Engine.TILE_WIDTH, i*Engine.TILE_HEIGHT, Engine.TILE_WIDTH, Engine.TILE_HEIGHT);
@@ -57,9 +58,31 @@ namespace MazeGame
             gameObjects = new List<GameObjectChild>();
             for (int i = 0; i < gameObLocs.GameObs[counter].GameObjects.Count; i++)
             {
-                GameObjectChild temp = new GameObjectChild(gameObLocs.GameObs[counter].GameObjects[i].id, "Object", gameObLocs.GameObs[counter].GameObjects[i].XLoc, gameObLocs.GameObs[counter].GameObjects[i].YLoc, gameObLocs.GameObs[counter].GameObjects[i].Width, gameObLocs.GameObs[counter].GameObjects[i].Height);
+                GameObjectChild temp = new GameObjectChild(gameObLocs.GameObs[counter].GameObjects[i].id, 
+                    "Object", gameObLocs.GameObs[counter].GameObjects[i].XLoc, gameObLocs.GameObs[counter].GameObjects[i].YLoc, 
+                    gameObLocs.GameObs[counter].GameObjects[i].Width, gameObLocs.GameObs[counter].GameObjects[i].Height);
                 temp._collider = gameObLocs.GameObs[counter].GameObjects[i].Collision;
                 gameObjects.Add(temp);
+            }
+        }
+
+        public void constructTriggers(int counter, TriggerLocations triggerloc)
+        {
+            triggers = new List<Trigger>();
+            for (int i = 0; i < triggerloc.Triggers[counter].TriggerObjects.Count; i++)
+            {
+                List<int> tempList = new List<int>();
+                for (int j = 0; j < triggerloc.Triggers[counter].TriggerObjects[i].InfoItems.Count; j++)
+                {
+                    int tempint = triggerloc.Triggers[counter].TriggerObjects[i].InfoItems[j].Item;
+                    tempList.Add(tempint);
+                }
+                Trigger temp = new Trigger(triggerloc.Triggers[counter].TriggerObjects[i].id,
+                    "Trigger", triggerloc.Triggers[counter].TriggerObjects[i].XLoc, triggerloc.Triggers[counter].TriggerObjects[i].YLoc,
+                    triggerloc.Triggers[counter].TriggerObjects[i].Width, triggerloc.Triggers[counter].TriggerObjects[i].Height,
+                    tempList);
+                temp._collider = false;
+                triggers.Add(temp);
             }
         }
 
@@ -68,7 +91,11 @@ namespace MazeGame
             enemies = new List<Enemy>();
             for (int i = 0; i < enemyLocs.Enemies[counter].EnemyObjects.Count; i++)
             {
-                Enemy temp = new Enemy(enemyLocs.Enemies[counter].EnemyObjects[i].id, "Object", enemyLocs.Enemies[counter].EnemyObjects[i].XLoc, enemyLocs.Enemies[counter].EnemyObjects[i].YLoc, enemyLocs.Enemies[counter].EnemyObjects[i].Width, enemyLocs.Enemies[counter].EnemyObjects[i].Height, enemyLocs.Enemies[counter].EnemyObjects[i].Horizontal, enemyLocs.Enemies[counter].EnemyObjects[i].Left, enemyLocs.Enemies[counter].EnemyObjects[i].Up, enemyLocs.Enemies[counter].EnemyObjects[i].Speed);
+                Enemy temp = new Enemy(enemyLocs.Enemies[counter].EnemyObjects[i].id, "Object", 
+                    enemyLocs.Enemies[counter].EnemyObjects[i].XLoc, enemyLocs.Enemies[counter].EnemyObjects[i].YLoc, 
+                    enemyLocs.Enemies[counter].EnemyObjects[i].Width, enemyLocs.Enemies[counter].EnemyObjects[i].Height, 
+                    enemyLocs.Enemies[counter].EnemyObjects[i].Horizontal, enemyLocs.Enemies[counter].EnemyObjects[i].Left, 
+                    enemyLocs.Enemies[counter].EnemyObjects[i].Up, enemyLocs.Enemies[counter].EnemyObjects[i].Speed);
                 if (temp._horizontal)
                 {
                     if (temp._left)
@@ -96,6 +123,42 @@ namespace MazeGame
             }
         }
 
+        public void runTrigger(List<int> items, Trigger temp)
+        {
+            switch (items[0])
+            {
+                case 0:
+                    changeMap(items[1], items[2]);
+                    break;
+                case 1:
+                    killEnemy(items[1], temp);
+                    break;
+            }
+        }
+
+        public void changeMap(int x, int y)
+        {
+            map[x, y]._collider = !map[x, y]._collider;
+            if (map[x, y]._tileID == 0)
+            {
+                map[x, y]._tileID = 1;
+            }
+            else
+            {
+                map[x, y]._tileID = 0;
+            }
+            map[x, y]._texture = Engine.tileTypes.Single(p => p._tileID == map[x, y]._tileID)._texture;
+        }
+
+        public void killEnemy(int i, Trigger temp)
+        {
+            if (!temp.enemyKilled)
+            {
+                temp.enemyKilled = true;
+                enemies.RemoveAt(i);
+            }
+        }
+
         public void loadTextures()
         {
             for (int i = 0; i < map.GetLength(0); i++)
@@ -115,6 +178,10 @@ namespace MazeGame
             {
                 temp._texture = Engine.tileTypes.Single(p => p._tileID == temp._tileID)._texture;
             }
+            foreach (Trigger temp in triggers)
+            {
+                temp._texture = Engine.tileTypes.Single(p => p._tileID == temp._tileID)._texture;
+            }
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -127,6 +194,10 @@ namespace MazeGame
                 }
             }
             endGoal.draw(spriteBatch, 0, 0);
+            foreach (Trigger temp in triggers)
+            {
+                temp.draw(spriteBatch, 0, 0);
+            }
             player.draw(spriteBatch, 0, 0);
             foreach (Enemy temp in enemies)
             {
@@ -167,7 +238,8 @@ namespace MazeGame
             {
                 for (int j = 0; j < 2; j++)
                 {
-                    if (xcorners[i] >= endGoal._x && xcorners[i] <= endGoal._x + endGoal._width && ycorners[j] >= endGoal._y && ycorners[j] <= endGoal._y + endGoal._height)
+                    if (xcorners[i] >= endGoal._x && xcorners[i] <= endGoal._x + endGoal._width && 
+                        ycorners[j] >= endGoal._y && ycorners[j] <= endGoal._y + endGoal._height)
                     {
                         return true;
                     }
@@ -188,7 +260,8 @@ namespace MazeGame
                 {
                     for (int j = 0; j < 2; j++)
                     {
-                        if (xcorners[i] >= temp._x && xcorners[i] <= temp._x + temp._width && ycorners[j] >= temp._y && ycorners[j] <= temp._y + temp._height)
+                        if (xcorners[i] >= temp._x && xcorners[i] <= temp._x + temp._width && 
+                            ycorners[j] >= temp._y && ycorners[j] <= temp._y + temp._height)
                         {
                             return true;
                         }
@@ -196,6 +269,40 @@ namespace MazeGame
                 }
             }
             return false;
+        }
+
+        public void checkIfHitTrigger()
+        {
+            int[] xcorners = { player._x, player._x + player._width };
+            int[] ycorners = { player._y, player._y + player._height };
+
+            foreach (Trigger temp in triggers)
+            {
+                bool hit = false;
+                for (int i = 0; i < 2; i++)
+                {
+                    for (int j = 0; j < 2; j++)
+                    {
+                        if (xcorners[i] >= temp._x && xcorners[i] <= temp._x + temp._width &&
+                            ycorners[j] >= temp._y && ycorners[j] <= temp._y + temp._height)
+                        {
+                            hit = true;
+                        }
+                    }
+                }
+                if (hit)
+                {
+                    if (!temp._isInTrigger)
+                    {
+                        temp._isInTrigger = true;
+                        runTrigger(temp._items, temp);
+                    }
+                }
+                else
+                {
+                    temp._isInTrigger = false;
+                }
+            }
         }
 
         public void checkIfCollision(GameObject obj, Direction dir, int speed)
@@ -249,7 +356,8 @@ namespace MazeGame
                             if (map[i, j]._collider)
                             {
                                 if ((ymin - speed >= map[i, j]._y && ymin - speed <= map[i, j]._y + map[i, j]._height) &&
-                                    ((xmin >= map[i, j]._x && xmin <= map[i, j]._x + map[i, j]._width) || (xmax >= map[i, j]._x && xmax <= map[i, j]._x + map[i, j]._width)))
+                                    ((xmin >= map[i, j]._x && xmin <= map[i, j]._x + map[i, j]._width) || 
+                                    (xmax >= map[i, j]._x && xmax <= map[i, j]._x + map[i, j]._width)))
                                 {
                                     moveObject(obj, dir, ymin - (map[i, j]._y + map[i, j]._height) - speed - 1);
                                     obj._isColliding = true;
@@ -260,7 +368,8 @@ namespace MazeGame
                             if (map[i, j]._collider)
                             {
                                 if ((ymax + speed >= map[i, j]._y && ymax + speed <= map[i, j]._y + map[i, j]._height) &&
-                                    ((xmin >= map[i, j]._x && xmin <= map[i, j]._x + map[i, j]._width) || (xmax >= map[i, j]._x && xmax <= map[i, j]._x + map[i, j]._width)))
+                                    ((xmin >= map[i, j]._x && xmin <= map[i, j]._x + map[i, j]._width) || 
+                                    (xmax >= map[i, j]._x && xmax <= map[i, j]._x + map[i, j]._width)))
                                 {
                                     moveObject(obj, dir, (map[i, j]._y) - ymax - speed - 1);
                                     obj._isColliding = true;
@@ -271,7 +380,8 @@ namespace MazeGame
                             if (map[i, j]._collider)
                             {
                                 if ((xmin - speed >= map[i, j]._x && xmin - speed <= map[i, j]._x + map[i, j]._width) &&
-                                    ((ymin >= map[i, j]._y && ymin <= map[i, j]._y + map[i, j]._height) || (ymax >= map[i, j]._y && ymax <= map[i, j]._y + map[i, j]._height)))
+                                    ((ymin >= map[i, j]._y && ymin <= map[i, j]._y + map[i, j]._height) || 
+                                    (ymax >= map[i, j]._y && ymax <= map[i, j]._y + map[i, j]._height)))
                                 {
                                     moveObject(obj, dir, xmin - (map[i, j]._x + map[i, j]._width) - speed - 1);
                                     obj._isColliding = true;
@@ -282,7 +392,8 @@ namespace MazeGame
                             if (map[i, j]._collider)
                             {
                                 if ((xmax + speed >= map[i, j]._x && xmax + speed <= map[i, j]._x + map[i, j]._width) &&
-                                    ((ymin >= map[i, j]._y && ymin <= map[i, j]._y + map[i, j]._height) || (ymax >= map[i, j]._y && ymax <= map[i, j]._y + map[i, j]._height)))
+                                    ((ymin >= map[i, j]._y && ymin <= map[i, j]._y + map[i, j]._height) || 
+                                    (ymax >= map[i, j]._y && ymax <= map[i, j]._y + map[i, j]._height)))
                                 {
                                     moveObject(obj, dir, (map[i, j]._x) - xmax - speed - 1);
                                     obj._isColliding = true;
@@ -302,7 +413,8 @@ namespace MazeGame
                         if (gameObjects[i]._collider)
                         {
                             if ((ymin - speed >= gameObjects[i]._y && ymin - speed <= gameObjects[i]._y + gameObjects[i]._height) &&
-                                ((xmin >= gameObjects[i]._x && xmin <= gameObjects[i]._x +gameObjects[i]._width) || (xmax >=gameObjects[i]._x && xmax <=gameObjects[i]._x +gameObjects[i]._width)))
+                                ((xmin >= gameObjects[i]._x && xmin <= gameObjects[i]._x +gameObjects[i]._width) || 
+                                (xmax >=gameObjects[i]._x && xmax <=gameObjects[i]._x +gameObjects[i]._width)))
                             {
                                 moveObject(obj, dir, ymin - (gameObjects[i]._y +gameObjects[i]._height) - speed - 1);
                                 obj._isColliding = true;
@@ -313,7 +425,8 @@ namespace MazeGame
                         if (gameObjects[i]._collider)
                         {
                             if ((ymax + speed >=gameObjects[i]._y && ymax + speed <=gameObjects[i]._y +gameObjects[i]._height) &&
-                                ((xmin >=gameObjects[i]._x && xmin <=gameObjects[i]._x +gameObjects[i]._width) || (xmax >=gameObjects[i]._x && xmax <=gameObjects[i]._x +gameObjects[i]._width)))
+                                ((xmin >=gameObjects[i]._x && xmin <=gameObjects[i]._x +gameObjects[i]._width) || 
+                                (xmax >=gameObjects[i]._x && xmax <=gameObjects[i]._x +gameObjects[i]._width)))
                             {
                                 moveObject(obj, dir, (gameObjects[i]._y) - ymax - speed - 1);
                                 obj._isColliding = true;
@@ -324,7 +437,8 @@ namespace MazeGame
                         if (gameObjects[i]._collider)
                         {
                             if ((xmin - speed >=gameObjects[i]._x && xmin - speed <=gameObjects[i]._x +gameObjects[i]._width) &&
-                                ((ymin >=gameObjects[i]._y && ymin <=gameObjects[i]._y +gameObjects[i]._height) || (ymax >=gameObjects[i]._y && ymax <=gameObjects[i]._y +gameObjects[i]._height)))
+                                ((ymin >=gameObjects[i]._y && ymin <=gameObjects[i]._y +gameObjects[i]._height) || 
+                                (ymax >=gameObjects[i]._y && ymax <=gameObjects[i]._y +gameObjects[i]._height)))
                             {
                                 moveObject(obj, dir, xmin - (gameObjects[i]._x +gameObjects[i]._width) - speed - 1);
                                 obj._isColliding = true;
@@ -335,7 +449,8 @@ namespace MazeGame
                         if (gameObjects[i]._collider)
                         {
                             if ((xmax + speed >=gameObjects[i]._x && xmax + speed <=gameObjects[i]._x +gameObjects[i]._width) &&
-                                ((ymin >=gameObjects[i]._y && ymin <=gameObjects[i]._y +gameObjects[i]._height) || (ymax >=gameObjects[i]._y && ymax <=gameObjects[i]._y +gameObjects[i]._height)))
+                                ((ymin >=gameObjects[i]._y && ymin <=gameObjects[i]._y +gameObjects[i]._height) || 
+                                (ymax >=gameObjects[i]._y && ymax <=gameObjects[i]._y +gameObjects[i]._height)))
                             {
                                 moveObject(obj, dir, (gameObjects[i]._x) - xmax - speed - 1);
                                 obj._isColliding = true;

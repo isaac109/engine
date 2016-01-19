@@ -9,5 +9,13 @@
       <XLoc>32</XLoc>
       <YLoc>320</YLoc>
     </PlayerLoc>
+    <PlayerLoc>
+      <XLoc>32</XLoc>
+      <YLoc>320</YLoc>
+    </PlayerLoc>
+    <PlayerLoc>
+      <XLoc>32</XLoc>
+      <YLoc>320</YLoc>
+    </PlayerLoc>
   </Players>
 </PlayerLocations>

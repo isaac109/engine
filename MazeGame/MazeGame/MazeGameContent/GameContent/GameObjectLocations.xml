@@ -33,5 +33,21 @@
         </GameObLoc>
       </GameObjects>
     </Levels>
+    <Levels>
+      <GameObjects>
+        <GameObLoc>
+          <id>5</id>
+          <XLoc>320</XLoc>
+          <YLoc>320</YLoc>
+          <Width>32</Width>
+          <Height>32</Height>
+          <Collision>false</Collision>
+        </GameObLoc>
+      </GameObjects>
+    </Levels>
+    <Levels>
+      <GameObjects>
+      </GameObjects>
+    </Levels>
   </GameObs>
 </GameObjectLocations>

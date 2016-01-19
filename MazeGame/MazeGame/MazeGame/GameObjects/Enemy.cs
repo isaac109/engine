@@ -17,7 +17,8 @@ namespace MazeGame
         public int _speed;
         public Direction direction;
 
-        public Enemy(int tileID, string name, int x, int y, int width, int height, bool horizontal, bool left, bool up, int speed): base(x, y, Engine.tileTypes.Single(p => p._tileID == tileID)._collider, width, height)
+        public Enemy(int tileID, string name, int x, int y, int width, int height, bool horizontal, bool left, bool up, int speed): 
+            base(x, y, Engine.tileTypes.Single(p => p._tileID == tileID)._collider, width, height)
         {
             _tileID = tileID;
             _name = name;

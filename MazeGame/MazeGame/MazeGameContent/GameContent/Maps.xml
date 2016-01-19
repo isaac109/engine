@@ -47,5 +47,51 @@
         </row>
       </rows>
     </Map>
+    <Map>
+      <id>3</id>
+      <rows>
+        <row>
+          <text>011110</text>
+        </row>
+        <row>
+          <text>011110</text>
+        </row>
+        <row>
+          <text>010000</text>
+        </row>
+        <row>
+          <text>010111</text>
+        </row>
+        <row>
+          <text>011111</text>
+        </row>
+        <row>
+          <text>011111</text>
+        </row>
+      </rows>
+    </Map>
+    <Map>
+      <id>3</id>
+      <rows>
+        <row>
+          <text>011110</text>
+        </row>
+        <row>
+          <text>011110</text>
+        </row>
+        <row>
+          <text>000000</text>
+        </row>
+        <row>
+          <text>011111</text>
+        </row>
+        <row>
+          <text>011111</text>
+        </row>
+        <row>
+          <text>011111</text>
+        </row>
+      </rows>
+    </Map>
   </maps>
 </Maps>

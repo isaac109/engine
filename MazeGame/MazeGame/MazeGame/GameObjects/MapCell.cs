@@ -15,7 +15,8 @@ namespace MazeGame
 
         public string _name;
 
-        public MapCell(int tileID, string name, int x, int y, int width, int height):base( x, y, Engine.tileTypes.Single(p => p._tileID == tileID)._collider, width, height)
+        public MapCell(int tileID, string name, int x, int y, int width, int height):
+            base( x, y, Engine.tileTypes.Single(p => p._tileID == tileID)._collider, width, height)
         {
             _tileID = tileID;
             _name = name;
