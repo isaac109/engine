@@ -32,11 +32,6 @@ namespace MazeGame
         int lvlConter = 0;
         SpriteFont spriteFont;
         Maps maps;
-        PlayerLocations playerLocs;
-        EndGoalLocations endGoals;
-        GameObjectLocations gameObLocations;
-        EnemyLocations enemyLocs;
-        TriggerLocations triggerLocs;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -44,21 +39,6 @@ namespace MazeGame
             FileStream fileStream = new FileStream("Content\\GameContent\\Maps.xml", FileMode.Open);
             XmlSerializer xml = new XmlSerializer(typeof(Maps));
             maps = (Maps)xml.Deserialize(fileStream);
-            fileStream = new FileStream("Content\\GameContent\\PlayerLocations.xml", FileMode.Open);
-            xml = new XmlSerializer(typeof(PlayerLocations));
-            playerLocs = (PlayerLocations)xml.Deserialize(fileStream);
-            fileStream = new FileStream("Content\\GameContent\\EndGoalLocations.xml", FileMode.Open);
-            xml = new XmlSerializer(typeof(EndGoalLocations));
-            endGoals = (EndGoalLocations)xml.Deserialize(fileStream);
-            fileStream = new FileStream("Content\\GameContent\\GameObjectLocations.xml", FileMode.Open);
-            xml = new XmlSerializer(typeof(GameObjectLocations));
-            gameObLocations = (GameObjectLocations)xml.Deserialize(fileStream);
-            fileStream = new FileStream("Content\\GameContent\\EnemyLocations.xml", FileMode.Open);
-            xml = new XmlSerializer(typeof(EnemyLocations));
-            enemyLocs = (EnemyLocations)xml.Deserialize(fileStream);
-            fileStream = new FileStream("Content\\GameContent\\TriggerLocations.xml", FileMode.Open);
-            xml = new XmlSerializer(typeof(TriggerLocations));
-            triggerLocs = (TriggerLocations)xml.Deserialize(fileStream);
         }
 
         /// <summary>
@@ -88,11 +68,6 @@ namespace MazeGame
         public void initilaizeTiles()
         {
             layer.constructMap(lvlConter, maps);
-            layer.constructEnd(lvlConter, endGoals);
-            layer.constructPlayer(lvlConter, playerLocs);
-            layer.constructEnemies(lvlConter, enemyLocs); 
-            layer.constructGameObjects(lvlConter, gameObLocations);
-            layer.constructTriggers(lvlConter, triggerLocs);
             lvlConter++;
         }
 

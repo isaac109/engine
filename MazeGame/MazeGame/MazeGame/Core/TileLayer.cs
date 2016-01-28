@@ -40,62 +40,34 @@ namespace MazeGame
                     map[i,j] = new MapCell(type, i.ToString() + j.ToString(), j*Engine.TILE_WIDTH, i*Engine.TILE_HEIGHT, Engine.TILE_WIDTH, Engine.TILE_HEIGHT);
                 }
             }
+            constructPlayer(counter, maps);
+            constructEnd(counter, maps);
+            constructEnemies(counter, maps);
+            constructGameObjects(counter, maps);
+            constructTriggers(counter, maps);
             return false;
         }
 
-        public void constructEnd(int counter, EndGoalLocations endGoals)
+        public void constructPlayer(int counter, Maps maps)
         {
-            endGoal = new EndGoal(3, "Target", endGoals.EndGoals[counter].XLoc, endGoals.EndGoals[counter].YLoc, Engine.ENDGOAL_WIDTH, Engine.ENDGOAL_HEIGHT);
+            player = new Player(4, "Player", maps.maps[counter].Player[0].XLoc, maps.maps[counter].Player[0].YLoc, Engine.PLAYER_WIDTH, Engine.PLAYER_HEIGHT);
         }
 
-        public void constructPlayer(int counter, PlayerLocations playerLoc)
+        public void constructEnd(int counter, Maps maps)
         {
-            player = new Player(4, "Player", playerLoc.Players[counter].XLoc, playerLoc.Players[counter].YLoc, Engine.PLAYER_WIDTH, Engine.PLAYER_HEIGHT);
+            endGoal = new EndGoal(3, "Target", maps.maps[counter].EndGoal[0].XLoc, maps.maps[counter].EndGoal[0].YLoc, Engine.ENDGOAL_WIDTH, Engine.ENDGOAL_HEIGHT);
         }
 
-        public void constructGameObjects(int counter, GameObjectLocations gameObLocs)
-        {
-            gameObjects = new List<GameObjectChild>();
-            for (int i = 0; i < gameObLocs.GameObs[counter].GameObjects.Count; i++)
-            {
-                GameObjectChild temp = new GameObjectChild(gameObLocs.GameObs[counter].GameObjects[i].id, 
-                    "Object", gameObLocs.GameObs[counter].GameObjects[i].XLoc, gameObLocs.GameObs[counter].GameObjects[i].YLoc, 
-                    gameObLocs.GameObs[counter].GameObjects[i].Width, gameObLocs.GameObs[counter].GameObjects[i].Height);
-                temp._collider = gameObLocs.GameObs[counter].GameObjects[i].Collision;
-                gameObjects.Add(temp);
-            }
-        }
-
-        public void constructTriggers(int counter, TriggerLocations triggerloc)
-        {
-            triggers = new List<Trigger>();
-            for (int i = 0; i < triggerloc.Triggers[counter].TriggerObjects.Count; i++)
-            {
-                List<int> tempList = new List<int>();
-                for (int j = 0; j < triggerloc.Triggers[counter].TriggerObjects[i].InfoItems.Count; j++)
-                {
-                    int tempint = triggerloc.Triggers[counter].TriggerObjects[i].InfoItems[j].Item;
-                    tempList.Add(tempint);
-                }
-                Trigger temp = new Trigger(triggerloc.Triggers[counter].TriggerObjects[i].id,
-                    "Trigger", triggerloc.Triggers[counter].TriggerObjects[i].XLoc, triggerloc.Triggers[counter].TriggerObjects[i].YLoc,
-                    triggerloc.Triggers[counter].TriggerObjects[i].Width, triggerloc.Triggers[counter].TriggerObjects[i].Height,
-                    tempList);
-                temp._collider = false;
-                triggers.Add(temp);
-            }
-        }
-
-        public void constructEnemies(int counter, EnemyLocations enemyLocs)
+        public void constructEnemies(int counter, Maps maps)
         {
             enemies = new List<Enemy>();
-            for (int i = 0; i < enemyLocs.Enemies[counter].EnemyObjects.Count; i++)
+            for (int i = 0; i < maps.maps[counter].Enemies.Count; i++)
             {
-                Enemy temp = new Enemy(enemyLocs.Enemies[counter].EnemyObjects[i].id, "Object", 
-                    enemyLocs.Enemies[counter].EnemyObjects[i].XLoc, enemyLocs.Enemies[counter].EnemyObjects[i].YLoc, 
-                    enemyLocs.Enemies[counter].EnemyObjects[i].Width, enemyLocs.Enemies[counter].EnemyObjects[i].Height, 
-                    enemyLocs.Enemies[counter].EnemyObjects[i].Horizontal, enemyLocs.Enemies[counter].EnemyObjects[i].Left, 
-                    enemyLocs.Enemies[counter].EnemyObjects[i].Up, enemyLocs.Enemies[counter].EnemyObjects[i].Speed);
+                Enemy temp = new Enemy(maps.maps[counter].Enemies[i].id, "Object",
+                    maps.maps[counter].Enemies[i].XLoc, maps.maps[counter].Enemies[i].YLoc,
+                    maps.maps[counter].Enemies[i].Width, maps.maps[counter].Enemies[i].Height,
+                    maps.maps[counter].Enemies[i].Horizontal, maps.maps[counter].Enemies[i].Left,
+                    maps.maps[counter].Enemies[i].Up, maps.maps[counter].Enemies[i].Speed);
                 if (temp._horizontal)
                 {
                     if (temp._left)
@@ -118,11 +90,44 @@ namespace MazeGame
                         temp.direction = Direction.DOWN;
                     }
                 }
-                
+
                 enemies.Add(temp);
             }
         }
 
+        public void constructGameObjects(int counter, Maps maps)
+        {
+            gameObjects = new List<GameObjectChild>();
+            for (int i = 0; i < maps.maps[counter].GameObjects.Count; i++)
+            {
+                GameObjectChild temp = new GameObjectChild(maps.maps[counter].GameObjects[i].id,
+                    "Object", maps.maps[counter].GameObjects[i].XLoc, maps.maps[counter].GameObjects[i].YLoc,
+                    maps.maps[counter].GameObjects[i].Width, maps.maps[counter].GameObjects[i].Height);
+                temp._collider = maps.maps[counter].GameObjects[i].Collision;
+                gameObjects.Add(temp);
+            }
+        }
+
+        public void constructTriggers(int counter, Maps maps)
+        {
+            triggers = new List<Trigger>();
+            for (int i = 0; i < maps.maps[counter].Triggers.Count; i++)
+            {
+                List<int> tempList = new List<int>();
+                for (int j = 0; j < maps.maps[counter].Triggers[i].InfoItems.Count; j++)
+                {
+                    int tempint = maps.maps[counter].Triggers[i].InfoItems[j].Item;
+                    tempList.Add(tempint);
+                }
+                Trigger temp = new Trigger(maps.maps[counter].Triggers[i].id,
+                    "Trigger", maps.maps[counter].Triggers[i].XLoc, maps.maps[counter].Triggers[i].YLoc,
+                    maps.maps[counter].Triggers[i].Width, maps.maps[counter].Triggers[i].Height,
+                    tempList);
+                temp._collider = false;
+                triggers.Add(temp);
+            }
+        }
+      
         public void runTrigger(List<int> items, Trigger temp)
         {
             switch (items[0])
@@ -183,6 +188,7 @@ namespace MazeGame
                 temp._texture = Engine.tileTypes.Single(p => p._tileID == temp._tileID)._texture;
             }
         }
+        
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
@@ -247,7 +253,6 @@ namespace MazeGame
             }
             return false;
         }
-
 
         public bool checkIfHitEnemy()
         {

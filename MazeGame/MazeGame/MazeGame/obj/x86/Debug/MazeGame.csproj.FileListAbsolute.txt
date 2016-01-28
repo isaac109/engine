@@ -11,12 +11,7 @@ C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\M
 C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Debug\Content\SpriteFont1.xnb
 C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Debug\Content\GameContent\Maps.xml
 C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Debug\Content\SpriteFont1.spritefont
-C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Debug\Content\GameContent\PlayerLocations.xml
-C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Debug\Content\GameContent\EndGoalLocations.xml
-C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Debug\Content\GameContent\GameObjectLocations.xml
 C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Debug\Content\Textures\tree.xnb
 C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Debug\Content\Textures\tree2.xnb
 C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Debug\Content\Textures\spider.xnb
-C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Debug\Content\GameContent\EnemyLocations.xml
 C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Debug\Content\Textures\Orange.xnb
-C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Debug\Content\GameContent\TriggerLocations.xml
