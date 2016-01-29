@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>Textures\black.jpg</Source>
+      <Name>Textures\black</Name>
+      <Importer>TextureImporter</Importer>
+      <Options>None</Options>
+      <Output>C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Release\Content\Textures\black.xnb</Output>
+      <Time>2015-12-18T15:48:14.2048677-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\white.png</Source>
+      <Name>Textures\white</Name>
+      <Importer>TextureImporter</Importer>
+      <Options>None</Options>
+      <Output>C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Release\Content\Textures\white.xnb</Output>
+      <Time>2015-12-18T15:48:14.206369-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\red.png</Source>
+      <Name>Textures\red</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Release\Content\Textures\red.xnb</Output>
+      <Time>2016-01-08T14:36:48.4375591-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\yellow.png</Source>
+      <Name>Textures\yellow</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Release\Content\Textures\yellow.xnb</Output>
+      <Time>2016-01-08T14:36:50.8543402-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\tree.png</Source>
+      <Name>Textures\tree</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Release\Content\Textures\tree.xnb</Output>
+      <Time>2016-01-13T18:45:13.9813714-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\tree2.jpg</Source>
+      <Name>Textures\tree2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Release\Content\Textures\tree2.xnb</Output>
+      <Time>2016-01-13T19:04:05.1306483-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\spider.png</Source>
+      <Name>Textures\spider</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Release\Content\Textures\spider.xnb</Output>
+      <Time>2016-01-15T16:37:36.4623903-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Orange.png</Source>
+      <Name>Textures\Orange</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Release\Content\Textures\Orange.xnb</Output>
+      <Time>2016-01-19T12:27:58.0795465-08:00</Time>
+    </Item>
+    <Item>
+      <Source>SpriteFont1.spritefont</Source>
+      <Name>SpriteFont1</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Release\Content\SpriteFont1.xnb</Output>
+      <Time>2016-01-10T12:31:58.8988145-08:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <ContentProjectGUID>{1C645D83-930D-427C-B0E6-682676FBB832}</ContentProjectGUID>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>Reach</TargetProfile>
+      <BuildConfiguration>Release</BuildConfiguration>
+      <CompressContent>true</CompressContent>
+      <RootDirectory>C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGameContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\obj\x86\Release\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Release\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2011-09-01T17:22:30-07:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2011-09-01T17:22:30-07:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2011-09-01T17:22:30-07:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2011-09-01T17:22:30-07:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2011-09-01T17:22:30-07:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2011-09-01T17:22:30-07:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\WINDOWS\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2016-01-04T03:45:21.1033906-08:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>

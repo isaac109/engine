@@ -1,0 +1,17 @@
+C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Release\Content\Textures\black.xnb
+C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Release\Content\Textures\white.xnb
+C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Release\Content\Textures\red.xnb
+C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Release\Content\Textures\yellow.xnb
+C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Release\Content\Textures\tree.xnb
+C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Release\Content\Textures\tree2.xnb
+C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Release\Content\Textures\spider.xnb
+C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Release\Content\Textures\Orange.xnb
+C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Release\Content\SpriteFont1.xnb
+C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Release\Content\SpriteFont1.spritefont
+C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Release\Content\GameContent\Maps.xml
+C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Release\MazeGame.exe
+C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\bin\x86\Release\MazeGame.pdb
+C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\obj\x86\Release\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\obj\x86\Release\MazeGame.exe
+C:\Users\TheHollowManV\documents\visual studio 2012\Projects\MazeGame\MazeGame\MazeGame\obj\x86\Release\MazeGame.pdb
+C:\Users\TheHollowManV\Documents\Visual Studio 2012\Projects\MazeGame\MazeGame\MazeGame\obj\x86\Release\MazeGame.csprojResolveAssemblyReference.cache

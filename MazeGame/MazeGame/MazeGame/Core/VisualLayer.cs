@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
+// this is where the basic logic for the game's level occurs
 namespace MazeGame
 {
     class TileLayer

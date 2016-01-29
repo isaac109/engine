@@ -65,6 +65,7 @@ namespace MazeGame
             base.Initialize();
         }
 
+        //called to load in all information about the current level
         public void initilaizeTiles()
         {
             layer.constructMap(lvlConter, maps);
@@ -109,13 +110,16 @@ namespace MazeGame
                 this.Exit();
             if (!won)
             {
-                mouseInput.updateState();
-                mouseInput.updatePosition();
+                
+                //determines enemy collisions
                 foreach (Enemy temp in layer.enemies)
                 {
                     layer.checkIfCollision(temp, temp.direction, temp._speed);
                     temp.checkIfIsColliding();
                 }
+                //updates mouse input
+                mouseInput.updateState();
+                mouseInput.updatePosition();
                 if (mouseInput.state.LeftButton == ButtonState.Pressed && !leftButtonPressed)
                 {
                     leftButtonPressed = true;
@@ -126,8 +130,8 @@ namespace MazeGame
                     leftButtonPressed = false;
                 }
 
+                //updates keyboard input
                 keyInput.updateState();
-
                 if (keyInput.oldState.IsKeyDown(Keys.Up) || keyInput.oldState.IsKeyDown(Keys.W))
                 {
                     layer.checkIfCollision(layer.player, Direction.UP, Engine.PLAYER_SPEED);
@@ -144,12 +148,17 @@ namespace MazeGame
                 {
                     layer.checkIfCollision(layer.player, Direction.RIGHT, Engine.PLAYER_SPEED);
                 }
+
+                //determines if player on enemy collision
                 if (layer.checkIfHitEnemy())
                 {
                     lvlConter--;
                     initilaizeTiles();
                 }
+                //determines if player on trigger collision
                 layer.checkIfHitTrigger();
+                
+                //determines if win condition for level is met
                 if (maps.maps.Count == lvlConter)
                 {
                     won = layer.checkIfWin();

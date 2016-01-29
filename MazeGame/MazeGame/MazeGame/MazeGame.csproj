@@ -86,7 +86,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\Program.cs" />
     <Compile Include="Core\Game1.cs" />
-    <Compile Include="Core\TileLayer.cs" />
+    <Compile Include="Core\VisualLayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
